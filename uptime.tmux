@@ -3,9 +3,9 @@
 CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 source "$CURRENT_DIR/scripts/helpers.sh"
 
-uptime_time_interpolation="\#{uptime}"
-uptime_label_interpolation="\#{label}"
-uptime_short_label_interpolation="\#{short_label}"
+uptime_time_interpolation="\#{uptime_time}"
+uptime_label_interpolation="\#{uptime_label}"
+uptime_short_label_interpolation="\#{uptime_short_label}"
 
 uptime_short_label() {
   uptime_label | sed -e 's/\([mdh]\).*/\1/'
