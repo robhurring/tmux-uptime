@@ -3,28 +3,13 @@
 CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 source "$CURRENT_DIR/scripts/helpers.sh"
 
-uptime_time_interpolation="\#{uptime_time}"
-uptime_label_interpolation="\#{uptime_label}"
-uptime_short_label_interpolation="\#{uptime_short_label}"
-
-uptime_short_label() {
-  uptime_label | sed -e 's/\([mdh]\).*/\1/'
-}
-
-uptime_label() {
-  uptime | awk '{print $4}'|sed 's/,//'
-}
-
-uptime_digit() {
-  uptime | awk '{print $3}'
-}
+uptime_output="#($CURRENT_DIR/scripts/uptime.sh)"
+uptime_interpolation="\#{uptime}"
 
 do_interpolation() {
   local output="$1"
-  local output="${output/$uptime_time_interpolation/$(uptime_digit)}"
-  local output="${output/$uptime_label_interpolation/$(uptime_label)}"
-  local output="${output/$uptime_short_label_interpolation/$(uptime_short_label)}"
-  printf "%s" "$output"
+  local output="${output/$uptime_interpolation/$uptime_output}"
+  echo "$output"
 }
 
 update_tmux_uptime() {
